@@ -1,5 +1,5 @@
 {
-  "name": "learn-starter",
+  "name": "thepostio",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,7 +8,10 @@
     "start": "next start"
   },
   "dependencies": {
+    "gray-matter": "^4.0.2",
+    "js-yaml": "^3.14.0",
     "next": "9.3.5",
+    "node-fetch": "^2.6.0",
     "react": "16.13.1",
     "react-dom": "16.13.1"
   }
