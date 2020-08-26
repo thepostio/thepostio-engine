@@ -6,6 +6,9 @@
 */
 
 import '../styles/global-style.css'
+import 'highlight.js/styles/github.css'
+
+// highlight.js/styles/github.css'
 
 
 

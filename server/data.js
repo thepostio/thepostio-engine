@@ -116,9 +116,9 @@ export function pathJoin (parts, separator = '/') {
 
 
 function mdToHtml(md) {
-  return Marked(md)
+  // return Marked(md)
 
-  // const { window } = new JSDOM('<!DOCTYPE html>')
-  // const domPurify = DOMPurify(window)
-  // return domPurify.sanitize(Marked(md))
+  const { window } = new JSDOM('<!DOCTYPE html>')
+  const domPurify = DOMPurify(window)
+  return domPurify.sanitize(Marked(md))
 }
