@@ -11,8 +11,6 @@ const User = ({userData}) => {
     return <p>ERROR {userData.error}</p>  
   }
 
-  console.log(userData)
-
   return (
     <div>
       <h1>
@@ -27,11 +25,10 @@ const User = ({userData}) => {
       </p>
 
       <ul>
-        {userData.data.articles.map((slug) => <li key={slug}><Link href={`${username}/${slug}`}><a>{slug}</a></Link></li>)}
+        {userData.data.articles.map((slug) => <li key={slug}><Link href={`/${username}/${slug}`}><a>{slug}</a></Link></li>)}
       </ul>
     </div>
   )
-  //<p>the profile of user... {userData.data.author.displayName}</p>
 }
 
 export default User
@@ -40,7 +37,6 @@ export default User
 export async function getServerSideProps(context) {
   // TODO: create a query param to specify other data provider than GitHub
   const urlQuery = context.query
-  // console.log(urlQuery)
   let userData = await getAuthorData(urlQuery.username)
 
 
