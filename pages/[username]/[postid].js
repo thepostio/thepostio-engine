@@ -2,9 +2,10 @@
 import { withRouter } from 'next/router'
 import Link from 'next/link'
 import { parseISO, format } from 'date-fns'
+import hljs from 'highlight.js'
 import { getAuthorData, getPostData } from '../../server/data'
 import { incrementVisit, getRanking } from '../../server/metrics'
-import hljs from 'highlight.js'
+import MainLayout from '../../components/MainLayout'
 
 
 // const Post = ({userData, articleData}) => {
@@ -75,27 +76,29 @@ class Post extends React.Component {
     const niceDate = format(date, 'LLLL d, yyyy')
 
     return (
-      <div>
-        <p><Link href={`/${username}`}><a>← back</a></Link></p>
-        <p>Username: {username}</p>
-        <p>PostId: {postid}</p>
-        <p>{niceDate}</p>
-        <p>{properties.title}</p>
-        
-        {
-          properties.cover
-          ? <img src={properties.cover}/>
-          : null
-        }
+      <MainLayout>
+        <div>
+          <p><Link href={`/${username}`}><a>← back</a></Link></p>
+          <p>Username: {username}</p>
+          <p>PostId: {postid}</p>
+          <p>{niceDate}</p>
+          <p>{properties.title}</p>
+          
+          {
+            properties.cover
+            ? <img src={properties.cover}/>
+            : null
+          }
 
-        {
-          articleData.error
-          ? articleData.error
-          : <div ref={this._htmlDivRef} dangerouslySetInnerHTML={{ __html: articleData.data.html }} />
-        }
+          {
+            articleData.error
+            ? articleData.error
+            : <div ref={this._htmlDivRef} dangerouslySetInnerHTML={{ __html: articleData.data.html }} />
+          }
 
 
-      </div>
+        </div>
+      </MainLayout>
     )
   }
 }

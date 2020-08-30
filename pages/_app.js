@@ -5,9 +5,11 @@
     - globla states
 */
 
-import '../styles/global-style.css'
-import 'highlight.js/styles/github.css'
 
+
+import 'highlight.js/styles/github.css'
+import 'antd/dist/antd.css'
+import '../styles/global-style.css'
 // highlight.js/styles/github.css'
 
 
