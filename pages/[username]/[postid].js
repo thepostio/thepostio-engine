@@ -3,45 +3,14 @@ import { withRouter } from 'next/router'
 import Link from 'next/link'
 import { parseISO, format } from 'date-fns'
 import hljs from 'highlight.js'
+import { Breadcrumb, Card, Space, Avatar } from 'antd'
+import { FrownOutlined, TwitterCircleFilled, GithubFilled, PlusCircleFilled } from '@ant-design/icons'
 import { getAuthorData, getPostData } from '../../server/data'
 import { incrementVisit, getRanking } from '../../server/metrics'
 import MainLayout from '../../components/MainLayout'
 import styles from './styles.module.css'
+const { Meta } = Card;
 
-
-// const Post = ({userData, articleData}) => {
-//   const router = useRouter()
-//   const { username, postid } = router.query
-//   const properties = articleData.data.properties
-//   const date = parseISO(properties.date)
-//   const niceDate = format(date, 'LLLL d, yyyy')
-
-  
-
-//   return (
-//     <div>
-//       <p><Link href={`/${username}`}><a>← back</a></Link></p>
-//       <p>Username: {username}</p>
-//       <p>PostId: {postid}</p>
-//       <p>{niceDate}</p>
-//       <p>{properties.title}</p>
-      
-//       {
-//         properties.cover
-//         ? <img src={properties.cover}/>
-//         : null
-//       }
-
-//       {
-//         articleData.error
-//         ? articleData.error
-//         : <div dangerouslySetInnerHTML={{ __html: articleData.data.html }} />
-//       }
-
-
-//     </div>
-//   )
-// }
 
 class Post extends React.Component {
   constructor(props) {
@@ -52,7 +21,6 @@ class Post extends React.Component {
 
   highlight = () => {
     if (!this.state.editionMode && this._htmlDivRef.current) {
-      // console.log('this._htmlDivRef', this._htmlDivRef)
         const nodes = this._htmlDivRef.current.querySelectorAll('pre')
         nodes.forEach((node) => {
           hljs.highlightBlock(node)
@@ -62,13 +30,45 @@ class Post extends React.Component {
 
 
   componentDidMount() {
-    console.log('COMPONENET DID MOUNT');
     this.highlight()
   }
 
   render() {
     const userData = this.props.userData
     const articleData = this.props.articleData
+
+
+    if (userData.error || articleData.error) {
+      return (
+        <MainLayout>
+          <div
+            style={{
+              textAlign: 'center',
+              color: '#ffbb74',
+              marginTop: '3em',
+            }}
+          >
+            <FrownOutlined style={{fontSize: '7em'}}/>
+            <div
+              style={{
+                fontSize: '4em',
+              }}
+            >
+              404
+            </div>
+            <div style={{
+                fontSize: '1.5em',
+              }}
+            >
+              Article not found
+            </div>
+          </div>
+        </MainLayout>
+      )
+    }
+
+
+
     // const router = useRouter()
     const router = this.props.router
     const { username, postid } = router.query
@@ -78,13 +78,7 @@ class Post extends React.Component {
 
     const headerCard = (
       <div
-        style={{
-          height: 350,
-          position: 'relative',
-          width: '120%',
-          maxWidth: '100vw',
-          marginLeft: '-10%',
-        }}
+        className={styles.headercard}
       >
 
         <div
@@ -96,22 +90,14 @@ class Post extends React.Component {
         </div>
 
         <div
-          style={{
-            width: '100%',
-            height: '100%',
-            background: '#00000044',
-            position: 'absolute',
-            zIndex: 2,
-          }}
+          className={styles.headercarddarkgb}
         >
 
         </div>
         <div
+        className={styles.headercardbgpicture}
           style={{
             background: `url(${properties.cover}) no-repeat center center`,
-            backgroundSize: 'cover',
-            height: '100%',
-            zIndex: 1,
           }}
         >
 
@@ -122,19 +108,23 @@ class Post extends React.Component {
     return (
       <MainLayout>
         <div>
-          <p>
-            <Link href={`/${username}`}><a>← back to {userData.data.author.displayName}'s articles</a></Link>
-          </p>
-          <p>Username: {username}</p>
-          <p>PostId: {postid}</p>
-          
-          
+
+        <Breadcrumb
+          className={styles.breadcrumbs}
+        >
+        <Breadcrumb.Item>
+          <Link href='/'><a>The Post</a></Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+          <Link href={`/${username}`}><a>{userData.data.author.displayName}</a></Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+          {properties.title}
+        </Breadcrumb.Item>
+      </Breadcrumb>
+
+
           {headerCard}
-          {/* {
-            properties.cover
-            ? <img src={properties.cover} className={styles.cover}/>
-            : null
-          } */}
 
           {
             articleData.error
@@ -142,6 +132,22 @@ class Post extends React.Component {
             : <div ref={this._htmlDivRef} dangerouslySetInnerHTML={{ __html: articleData.data.html }} />
           }
 
+
+          <Card
+            className={styles.authorcard}
+            actions={[
+              
+              <Link href={`/${username}`}><a style={{fontSize: '2em'}}><PlusCircleFilled /></a></Link>,
+              <a style={{fontSize: '2em'}} href={`https://twitter.com/${userData.data.author.twitter}`}><TwitterCircleFilled /></a>,
+              <a style={{fontSize: '2em'}} href={`https://github.com/${userData.data.author.github}`}><GithubFilled /></a>,
+            ]}
+          >
+            <Meta
+              avatar={<Avatar size={50} src={userData.data.author.picture} />}
+              title={userData.data.author.displayName}
+              description={userData.data.author.biography}
+            />
+          </Card>
 
         </div>
       </MainLayout>
