@@ -1,0 +1,31 @@
+.cover {
+  width: 120%;
+  max-width: 100vw;
+  margin-left: -10%;
+}
+
+.title {
+  font-size: 3em;
+  text-align: center;
+  color: white;
+  margin-bottom: 0em;
+}
+
+.nicedate,
+.titleuser {
+  color: white;
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+}
+
+.titlewrapper {
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}

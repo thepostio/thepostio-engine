@@ -6,6 +6,7 @@ import hljs from 'highlight.js'
 import { getAuthorData, getPostData } from '../../server/data'
 import { incrementVisit, getRanking } from '../../server/metrics'
 import MainLayout from '../../components/MainLayout'
+import styles from './styles.module.css'
 
 
 // const Post = ({userData, articleData}) => {
@@ -75,20 +76,65 @@ class Post extends React.Component {
     const date = parseISO(properties.date)
     const niceDate = format(date, 'LLLL d, yyyy')
 
+    const headerCard = (
+      <div
+        style={{
+          height: 350,
+          position: 'relative',
+          width: '120%',
+          maxWidth: '100vw',
+          marginLeft: '-10%',
+        }}
+      >
+
+        <div
+          className={styles.titlewrapper}
+        >
+          <div className={styles.titleuser}>{userData.data.author.displayName}</div>
+          <h1 className={styles.title}>{properties.title}</h1>
+          <div className={styles.nicedate}>{niceDate}</div>
+        </div>
+
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            background: '#00000044',
+            position: 'absolute',
+            zIndex: 2,
+          }}
+        >
+
+        </div>
+        <div
+          style={{
+            background: `url(${properties.cover}) no-repeat center center`,
+            backgroundSize: 'cover',
+            height: '100%',
+            zIndex: 1,
+          }}
+        >
+
+        </div>
+      </div>
+    )
+
     return (
       <MainLayout>
         <div>
-          <p><Link href={`/${username}`}><a>← back</a></Link></p>
+          <p>
+            <Link href={`/${username}`}><a>← back to {userData.data.author.displayName}'s articles</a></Link>
+          </p>
           <p>Username: {username}</p>
           <p>PostId: {postid}</p>
-          <p>{niceDate}</p>
-          <p>{properties.title}</p>
           
-          {
+          
+          {headerCard}
+          {/* {
             properties.cover
-            ? <img src={properties.cover}/>
+            ? <img src={properties.cover} className={styles.cover}/>
             : null
-          }
+          } */}
 
           {
             articleData.error

@@ -1,0 +1,12 @@
+.logo {
+  /* height: 130px; */
+  padding: 15px;
+  margin: auto;
+}
+
+.header {
+  background: white;
+  height: fit-content;
+  display: block;
+}
+
