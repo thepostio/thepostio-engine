@@ -45,7 +45,32 @@ class MainLayout extends React.Component {
           </Col>
         </Row>
         
-        {/* <Footer>Footer</Footer> */}
+        <Footer
+          className={styles.footer}
+        >
+          <Row>
+            <Col xs={2}  sm={2}  md={4}  lg={4} xl={6}>
+            </Col>
+
+            <Col xs={20} sm={20} md={16} lg={16} xl={12}>
+              <Row>
+                <Col span={6}>
+                  <img src='/images/logo_dark.png' className={styles.footerlogo}/>
+                </Col>
+
+                <Col span={18} style={{textAlign: 'right'}}>
+                  <p>Created by <a href='https://twitter.com/jonathanlurie'>@jonathanlurie</a></p>
+                  <p>Fork it on <a href='https://github.com/thepostio/thepostio-engine'><GithubOutlined/></a></p>
+                </Col>
+                
+              </Row>
+            </Col>
+            
+
+            <Col xs={2}  sm={2}  md={4}  lg={4} xl={6}>
+            </Col>
+          </Row>
+        </Footer>
       </Layout>
     )
   }
