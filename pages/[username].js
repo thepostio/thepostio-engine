@@ -7,11 +7,12 @@ import {
 } from '@ant-design/icons'
 import Link from 'next/link'
 import MainLayout from '../components/MainLayout'
-import { getAuthorData } from '../server/data'
+import { getAuthorData, getPostMetadata } from '../server/data'
+import PostCard from '../components/PostCard'
 import styles from './username.module.css'
 
 
-const User = ({userData}) => {
+const User = ({userData, articleMetas}) => {
   const router = useRouter()
   const { username } = router.query
   
@@ -124,11 +125,12 @@ const User = ({userData}) => {
           </Col>
         </Row>
 
+        <div>
+          <Space direction="vertical" size={30} style={{width: '100%'}}>
+            {articleMetas.map((meta, i) => <PostCard key={i} postMetadata={meta}/>) }
+          </Space>
+        </div>
 
-
-        <ul>
-          {userData.data.articles.map((slug) => <li key={slug}><Link href={`/${username}/${slug}`}><a>{slug}</a></Link></li>)}
-        </ul>
       </div>
     </MainLayout>
   )
@@ -140,12 +142,21 @@ export default User
 export async function getServerSideProps(context) {
   // TODO: create a query param to specify other data provider than GitHub
   const urlQuery = context.query
-  let userData = await getAuthorData(urlQuery.username)
+  const provider = 'github'
+  let userData = await getAuthorData(urlQuery.username, provider)
 
+  let articleMetas = []
 
+  if (userData.data.articles) {
+    for (let i = 0; i < userData.data.articles.length; i += 1) {
+      articleMetas.push(await getPostMetadata(urlQuery.username, userData.data.articles[i], provider))
+    }
+  }
+  
   return {
     props: {
-      userData
+      userData,
+      articleMetas,
     },
   }
 }

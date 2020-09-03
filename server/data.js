@@ -81,6 +81,57 @@ export async function getPostData(username, postid, provider = 'github') {
 }
 
 
+
+
+export async function getPostMetadata(username, postid, provider = 'github') {
+  let folderUrl = `https://raw.githubusercontent.com/${username}/thepostio-content/master/articles/${postid}`
+  let url = `${folderUrl}/index.md`
+
+  let articleData = {
+    data: null,
+    error: null,
+  }
+
+  try {
+    const articleRes = await fetch(url)
+
+    // for some reasons, a 404 does not throw
+    if (!articleRes.ok) {
+      throw new Error(`${articleRes.status} ${articleRes.statusText}`)
+    }
+
+    // markdown business
+    const textContent = await articleRes.text()
+    const matterResult = matter(textContent)
+
+    // Sometimes, yaml parser converts date strings into instances of Date class.
+    // We don't want that because then serialization to client side is breaking.
+    if ('date' in matterResult.data && matterResult.data.date instanceof Date) {
+      matterResult.data.date = DateTools.getIso8601z({date: matterResult.data.date, onlyDate: true})
+    }
+
+    // fix cover to relative path
+    if ('cover' in matterResult.data && !matterResult.data.cover.startsWith('http')) {
+      matterResult.data.cover = pathJoin ([folderUrl, matterResult.data.cover]) 
+    }
+
+    articleData.data = {
+      ...matterResult.data,
+      postid,
+      username,
+    }
+
+  } catch(err) {
+    articleData.error = err.message
+  }
+
+  return articleData
+}
+
+
+
+
+
 export function markdownReplaceImageURL (md, prefix) {
   let mdMod = md.replace(/!\[[a-zA-Z0-9 ]*\]\(\s*(\S*)\s*\)/gm, function(correspondance, p1){
     if (p1.startsWith('http')) {
