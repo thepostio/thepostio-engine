@@ -148,21 +148,21 @@ class Post extends React.Component {
     return (
       <MainLayout>
         <div>
-
-          <Breadcrumb
-            className={styles.breadcrumbs}
-          >
-            <Breadcrumb.Item>
-              <Link href='/'><a>The Post</a></Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-              <Link href={`/${username}`}><a>{userData.data.author.displayName}</a></Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-              {properties.title}
-            </Breadcrumb.Item>
-          </Breadcrumb>
-
+          <Divider>
+            <Breadcrumb
+              className={styles.breadcrumbs}
+            >
+              <Breadcrumb.Item>
+                <Link href='/'><a>The Post</a></Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <Link href={`/${username}`}><a>{userData.data.author.displayName}</a></Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                {properties.title}
+              </Breadcrumb.Item>
+            </Breadcrumb>
+          </Divider>
             {headerCard}
 
             <div

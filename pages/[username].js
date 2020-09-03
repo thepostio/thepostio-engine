@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { Breadcrumb, Tooltip, Button, Divider, Col, Row } from 'antd'
+import { Breadcrumb, Tooltip, Button, Divider, Col, Row, Space } from 'antd'
 import {
   TwitterCircleFilled,
   GithubFilled,
@@ -20,33 +20,66 @@ const User = ({userData}) => {
     return <p>ERROR {userData.error}</p>  
   }
 
+  const userLinks = []
+
+  if (userData.data.author.website) {
+    userLinks.push(
+      <Tooltip title='Visit website' color='blue'>
+        <a style={{fontSize: '2em'}} href={userData.data.author.website}><GlobalOutlined /></a>
+      </Tooltip>
+    )
+  }
+
+  if (userData.data.author.twitter) {
+    userLinks.push(
+      <Tooltip title='See Twitter profile' color='blue'>
+        <a style={{fontSize: '2em'}} href={`https://twitter.com/${userData.data.author.twitter}`}><TwitterCircleFilled /></a>
+      </Tooltip>
+    )
+  }
+
+  if (userData.data.author.github) {
+    userLinks.push(
+      <Tooltip title='See GitHub profile' color='blue'>
+        <a style={{fontSize: '2em'}} href={`https://github.com/${userData.data.author.github}`}><GithubFilled /></a>
+      </Tooltip>
+    )
+  }
+
   return (
     <MainLayout>
       <div>
-      <Breadcrumb
-            className={styles.breadcrumbs}
-          >
-            <Breadcrumb.Item>
-              <Link href='/'><a>The Post</a></Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-            {userData.data.author.displayName}
-            </Breadcrumb.Item>
-          </Breadcrumb>
+      <Divider>
 
+        <Breadcrumb
+          className={styles.breadcrumbs}
+        >
+          <Breadcrumb.Item>
+            <Link href='/'><a>The Post</a></Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+          {userData.data.author.displayName}
+          </Breadcrumb.Item>
+        </Breadcrumb>
 
-        <Row>
-          <Col xs={5}  sm={6}  md={7}  lg={8} xl={9}>
+        </Divider>
+
+        <Row
+          style={{
+            marginTop: '1em',
+          }}
+        >
+          <Col xs={5}  sm={7}  md={7}  lg={8} xl={9}>
           </Col>
 
-          <Col xs={14}  sm={12}  md={10}  lg={8} xl={6}>
+          <Col xs={14}  sm={10}  md={10}  lg={8} xl={6}>
             <img
               className={styles.profilepicture}
               src={userData.data.author.picture}
             />
           </Col>
 
-          <Col xs={5}  sm={6}  md={7}  lg={8} xl={9}>
+          <Col xs={5}  sm={7}  md={7}  lg={8} xl={9}>
           </Col>
         </Row>
 
@@ -62,17 +95,26 @@ const User = ({userData}) => {
 
           <Col xs={20}  sm={20}  md={14}  lg={12} xl={12}>
             <h1
-              style={{
-                fontSize: '2em'
-              }}
+              className={styles.username}
             >
               {userData.data.author.displayName}
             </h1>
 
+            {
+              userLinks.length 
+              ? 
+              (
+                <Space
+                  className={styles.sociallinks}
+                >
+                  {userLinks}
+                </Space>
+              )
+              : null
+            }
+
             <p
-              style={{
-                color: '#9c9c9c',
-              }}
+              className={styles.biography}
             >
             {userData.data.author.biography}
             </p>
@@ -82,10 +124,7 @@ const User = ({userData}) => {
           </Col>
         </Row>
 
- 
-        <p>
-          <a href={'https://twitter.com/' + userData.data.author.twitter}>twitter</a> - <a href={userData.data.author.website}>website</a>
-        </p>
+
 
         <ul>
           {userData.data.articles.map((slug) => <li key={slug}><Link href={`/${username}/${slug}`}><a>{slug}</a></Link></li>)}

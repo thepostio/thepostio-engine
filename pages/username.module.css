@@ -2,9 +2,29 @@
   width: 100%;
   height: auto;
   border-radius: 50%;
+  box-shadow: 0px 0px 28px -5px rgb(0 0 0 / 37%);
+  border: solid 2px white;
 }
 
 .breadcrumbs {
   text-align: center;
   margin: 1em 0;
+}
+
+.sociallinks {
+  font-size: 0.6em;
+  margin: 1em 0;
+}
+
+.sociallinks a {
+  color: #40a9fe;
+}
+
+.username {
+  font-size: '2em';
+  margin: 0;
+}
+
+.biography {
+  color: #9c9c9c;
 }
