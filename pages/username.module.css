@@ -1,0 +1,10 @@
+.profilepicture {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+.breadcrumbs {
+  text-align: center;
+  margin: 1em 0;
+}
