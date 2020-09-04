@@ -3,8 +3,12 @@ import { Breadcrumb, Tooltip, Button, Divider, Col, Row, Space } from 'antd'
 import {
   TwitterCircleFilled,
   GithubFilled,
-  GlobalOutlined
+  GlobalOutlined,
+  FrownOutlined,
+  ReadOutlined
 } from '@ant-design/icons'
+
+
 import Link from 'next/link'
 import MainLayout from '../components/MainLayout'
 import { getAuthorData, getPostMetadata } from '../server/data'
@@ -18,7 +22,26 @@ const User = ({userData, articleMetas}) => {
   
 
   if (userData.error) {
-    return <p>ERROR {userData.error}</p>  
+    return (
+      <MainLayout>
+        <div
+          style={{
+            textAlign: 'center',
+            color: '#ffbb74',
+            marginTop: '3em',
+          }}
+        >
+          <FrownOutlined style={{fontSize: '7em'}}/>
+          <div style={{
+              fontSize: '1em',
+              marginTop: '2em',
+            }}
+          >
+            {userData.error}
+          </div>
+        </div>
+      </MainLayout>
+    )
   }
 
   const userLinks = []
@@ -47,8 +70,16 @@ const User = ({userData, articleMetas}) => {
     )
   }
 
+  const headMeta = {
+    title: `The Post — ${userData.data.author.displayName}`,
+    author: userData.data.author.displayName,
+    description: `${articleMetas.length} article${articleMetas.length > 1 ? 's' : ''} by ${userData.data.author.displayName} on The Post`,
+    cover: userData.data.author.picture,
+    url: `https://thepost.io/${username}`,
+  }
+
   return (
-    <MainLayout>
+    <MainLayout headMeta={headMeta}>
       <div>
       <Divider>
 
@@ -147,7 +178,7 @@ export async function getServerSideProps(context) {
 
   let articleMetas = []
 
-  if (userData.data.articles) {
+  if (userData.data && userData.data.articles) {
     for (let i = 0; i < userData.data.articles.length; i += 1) {
       articleMetas.push(await getPostMetadata(urlQuery.username, userData.data.articles[i], provider))
     }

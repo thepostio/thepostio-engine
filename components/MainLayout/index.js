@@ -2,14 +2,43 @@ import { Layout, Row, Col, Drawer, Space } from 'antd'
 import { MenuOutlined, GithubOutlined } from '@ant-design/icons'
 import styles from './mainlayout.module.css'
 import Link from 'next/link'
+import Head from 'next/head'
 const { Header, Footer, Sider, Content } = Layout
 
 
 class MainLayout extends React.Component {
 
   render() {
+    const headMeta = {...this.props.headMeta}
+
+    const title = headMeta.title ? headMeta.title : 'The Post'
+    const description = headMeta.description ? headMeta.description : 'Publish things, own your content.'
+    const url = headMeta.url ? headMeta.url : 'https://thepost.io'
+    const cover = headMeta.cover ? headMeta.cover : 'https://thepost.io/images/logo.png'
+    const author = headMeta.author ? headMeta.author : 'The Post'
+
     return (
       <Layout>
+        <Head>
+          <title>{title}</title>
+
+          <meta name="description" content={description}/>
+          <meta name="author" content={author}/>
+
+          <meta property="og:title" content={title} key="title_OG" />
+          <meta property="og:url" content={url} key="url_OG"/>
+          <meta property="og:image" content={cover} key="image_OG"/>
+          <meta property="og:description" content={description} key="description_OG"/>
+          <meta property="og:site_name" content="The Post" key="sitename_OG"/>
+
+          <meta name="twitter:title" content={title} key="title_TW"/>
+          <meta name="twitter:description" content={description} key="description_TW"/>
+          <meta name="twitter:image" content={cover} key="image_TW"/>
+          <meta name="twitter:card" content="summary_large_image" key="card_TW"/>
+          <meta name="twitter:site" content="@jonathanlurie" key="site_TW"/>
+
+          
+        </Head>
 
         <Header
           className={styles.header}

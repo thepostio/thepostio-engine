@@ -16,14 +16,14 @@ export async function getAuthorData(username, provider = 'github') {
     error: null,
   }
 
+  const userRes = await fetch(url)
+
+  // for some reasons, a 404 does not throw
+  if (!userRes.ok) {
+    userData.error = `The user "${username}" does not seem to have any content to share on The Post.`
+  }
+
   try {
-    const userRes = await fetch(url)
-
-    // for some reasons, a 404 does not throw
-    if (!userRes.ok) {
-      throw new Error(`${userRes.status} ${userRes.statusText}`)
-    }
-
     const dataText = await userRes.text()
     userData.data = yaml.safeLoad(dataText)
   } catch(err) {
@@ -44,14 +44,13 @@ export async function getPostData(username, postid, provider = 'github') {
     error: null,
   }
 
+  const articleRes = await fetch(url)
+
+  if (!articleRes.ok) {
+    articleData.error = 'This article does not exist'
+  }
+
   try {
-    const articleRes = await fetch(url)
-
-    // for some reasons, a 404 does not throw
-    if (!articleRes.ok) {
-      throw new Error(`${articleRes.status} ${articleRes.statusText}`)
-    }
-
     // markdown business
     const textContent = await articleRes.text()
     const matterResult = matter(textContent)
@@ -61,11 +60,23 @@ export async function getPostData(username, postid, provider = 'github') {
     // We don't want that because then serialization to client side is breaking.
     if ('date' in matterResult.data && matterResult.data.date instanceof Date) {
       matterResult.data.date = DateTools.getIso8601z({date: matterResult.data.date, onlyDate: true})
+    } else if(!('date' in matterResult.data)) {
+      matterResult.data.date = DateTools.getIso8601z({onlyDate: true})
     }
 
     // fix cover to relative path
     if ('cover' in matterResult.data && !matterResult.data.cover.startsWith('http')) {
       matterResult.data.cover = pathJoin ([folderUrl, matterResult.data.cover]) 
+    } else if (!('cover' in matterResult.data)) {
+      matterResult.data.cover = 'https://thepost.io/images/mosaic.png'
+    }
+
+    if (!('title' in matterResult.data)) {
+      matterResult.data.title = 'Untitled'
+    }
+
+    if (!('excerpt' in matterResult.data)) {
+      matterResult.data.excerpt = ''
     }
 
     articleData.data = {
@@ -92,14 +103,13 @@ export async function getPostMetadata(username, postid, provider = 'github') {
     error: null,
   }
 
+  const articleRes = await fetch(url)
+
+  if (!articleRes.ok) {
+    articleData.error = 'This article does not exist'
+  }
+
   try {
-    const articleRes = await fetch(url)
-
-    // for some reasons, a 404 does not throw
-    if (!articleRes.ok) {
-      throw new Error(`${articleRes.status} ${articleRes.statusText}`)
-    }
-
     // markdown business
     const textContent = await articleRes.text()
     const matterResult = matter(textContent)
@@ -108,11 +118,23 @@ export async function getPostMetadata(username, postid, provider = 'github') {
     // We don't want that because then serialization to client side is breaking.
     if ('date' in matterResult.data && matterResult.data.date instanceof Date) {
       matterResult.data.date = DateTools.getIso8601z({date: matterResult.data.date, onlyDate: true})
+    } else if(!('date' in matterResult.data)) {
+      matterResult.data.date = DateTools.getIso8601z({onlyDate: true})
     }
 
     // fix cover to relative path
     if ('cover' in matterResult.data && !matterResult.data.cover.startsWith('http')) {
       matterResult.data.cover = pathJoin ([folderUrl, matterResult.data.cover]) 
+    } else if (!('cover' in matterResult.data)) {
+      matterResult.data.cover = 'https://thepost.io/images/mosaic.png'
+    }
+
+    if (!('title' in matterResult.data)) {
+      matterResult.data.title = 'Untitled'
+    }
+
+    if (!('excerpt' in matterResult.data)) {
+      matterResult.data.excerpt = ''
     }
 
     articleData.data = {

@@ -59,18 +59,12 @@ class Post extends React.Component {
             }}
           >
             <FrownOutlined style={{fontSize: '7em'}}/>
-            <div
-              style={{
-                fontSize: '4em',
-              }}
-            >
-              404
-            </div>
             <div style={{
                 fontSize: '1.5em',
+                marginTop: '2em',
               }}
             >
-              Article not found
+              {userData.error || articleData.error}
             </div>
           </div>
         </MainLayout>

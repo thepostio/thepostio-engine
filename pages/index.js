@@ -1,4 +1,4 @@
-import Head from 'next/head'
+
 // import Layout, { siteTitle } from '../components/layout'
 
 
@@ -7,9 +7,7 @@ import Head from 'next/head'
 export default function Home() {
   return (
     <div>
-      <Head>
-
-      </Head>
+      
       hello
     </div>
   )
