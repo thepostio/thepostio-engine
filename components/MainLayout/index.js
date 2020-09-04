@@ -9,7 +9,7 @@ class MainLayout extends React.Component {
 
   render() {
     return (
-      <Layout style={{background: '#fff'}}>
+      <Layout>
 
         <Header
           className={styles.header}

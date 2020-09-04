@@ -25,7 +25,7 @@ const User = ({userData, articleMetas}) => {
 
   if (userData.data.author.website) {
     userLinks.push(
-      <Tooltip title='Visit website' color='blue'>
+      <Tooltip title='Visit website' color='blue' key='website'>
         <a style={{fontSize: '2em'}} href={userData.data.author.website}><GlobalOutlined /></a>
       </Tooltip>
     )
@@ -33,7 +33,7 @@ const User = ({userData, articleMetas}) => {
 
   if (userData.data.author.twitter) {
     userLinks.push(
-      <Tooltip title='See Twitter profile' color='blue'>
+      <Tooltip title='See Twitter profile' color='blue' key='twitter'>
         <a style={{fontSize: '2em'}} href={`https://twitter.com/${userData.data.author.twitter}`}><TwitterCircleFilled /></a>
       </Tooltip>
     )
@@ -41,7 +41,7 @@ const User = ({userData, articleMetas}) => {
 
   if (userData.data.author.github) {
     userLinks.push(
-      <Tooltip title='See GitHub profile' color='blue'>
+      <Tooltip title='See GitHub profile' color='blue' key='github'>
         <a style={{fontSize: '2em'}} href={`https://github.com/${userData.data.author.github}`}><GithubFilled /></a>
       </Tooltip>
     )
