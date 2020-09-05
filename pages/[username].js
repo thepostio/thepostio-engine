@@ -157,7 +157,7 @@ const User = ({userData, articleMetas}) => {
         </Row>
 
         <div>
-          <Space direction="vertical" size={30} style={{width: '100%'}}>
+          <Space direction="vertical" size={75} style={{width: '100%', marginTop: 50}}>
             {articleMetas.map((meta, i) => <PostCard key={i} postMetadata={meta}/>) }
           </Space>
         </div>

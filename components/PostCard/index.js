@@ -21,8 +21,13 @@ export default class PostCard extends React.Component {
     return (
       
       <Card
+      className={styles.card}
       hoverable
-      style={{ width: '100%'}}
+      bordered={false}
+      // style={{
+      //   width: '100%',
+      //   boxShadow: '0px 0px 28px -13px rgb(0 0 0 / 30%)'
+      // }}
       // cover={<img alt="example" src={postMetadata.cover} />}
 
       title={<div className={styles.datetitle}>{format(parseISO(postMetadata.date), 'LLLL d, yyyy')}</div>}

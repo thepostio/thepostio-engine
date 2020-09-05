@@ -2,3 +2,8 @@
   color: #8a8a8a;
   font-weight: 300;
 }
+
+.card {
+  width: 100%;
+  box-shadow: 0px 10px 55px -10px rgb(0 0 0 / 23%)
+}

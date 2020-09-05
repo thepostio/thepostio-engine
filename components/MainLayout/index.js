@@ -21,6 +21,7 @@ class MainLayout extends React.Component {
       <Layout>
         <Head>
           <title>{title}</title>
+          <link rel="shortcut icon" href="/favicon.png" />
 
           <meta name="description" content={description}/>
           <meta name="author" content={author}/>

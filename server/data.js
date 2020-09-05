@@ -196,5 +196,5 @@ function mdToHtml(md) {
 
   const { window } = new JSDOM('<!DOCTYPE html>')
   const domPurify = DOMPurify(window)
-  return domPurify.sanitize(Marked(md))
+  return domPurify.sanitize(Marked(md), { ADD_TAGS: ["iframe"] })
 }
