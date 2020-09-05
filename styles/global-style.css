@@ -15,7 +15,7 @@ body {
 }
 
 a {
-  color: #0070f3;
+  color: #40a9fe;
   text-decoration: none;
 }
 
@@ -47,4 +47,12 @@ code {
 .ant-layout,
 .ant-layout-header {
   background: inherit;
+}
+
+.ant-card-meta-title {
+  font-size: 1.5em;
+}
+
+.ant-card-meta-description {
+  font-size: 1.2em;
 }

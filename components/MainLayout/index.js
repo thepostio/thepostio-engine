@@ -14,7 +14,7 @@ class MainLayout extends React.Component {
     const title = headMeta.title ? headMeta.title : 'The Post'
     const description = headMeta.description ? headMeta.description : 'Publish things, own your content.'
     const url = headMeta.url ? headMeta.url : 'https://thepost.io'
-    const cover = headMeta.cover ? headMeta.cover : 'https://thepost.io/images/logo.png'
+    const cover = headMeta.cover ? headMeta.cover : 'https://thepost.io/images/mosaic.png'
     const author = headMeta.author ? headMeta.author : 'The Post'
 
     return (
@@ -30,6 +30,7 @@ class MainLayout extends React.Component {
           <meta property="og:image" content={cover} key="image_OG"/>
           <meta property="og:description" content={description} key="description_OG"/>
           <meta property="og:site_name" content="The Post" key="sitename_OG"/>
+          <meta property="og:type" content="article" key="type_OG"/>
 
           <meta name="twitter:title" content={title} key="title_TW"/>
           <meta name="twitter:description" content={description} key="description_TW"/>

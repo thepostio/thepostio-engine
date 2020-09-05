@@ -41,6 +41,8 @@ class Post extends React.Component {
   }
 
   render() {
+    const router = this.props.router
+    const { username, postid } = router.query
     const userData = this.props.userData
     const articleData = this.props.articleData
     const provider = this.props.provider
@@ -72,10 +74,8 @@ class Post extends React.Component {
     }
 
 
-
     // const router = useRouter()
-    const router = this.props.router
-    const { username, postid } = router.query
+    
     const properties = articleData.data.properties
     const date = parseISO(properties.date)
     const niceDate = format(date, 'LLLL d, yyyy')
@@ -102,6 +102,7 @@ class Post extends React.Component {
         className={styles.headercardbgpicture}
           style={{
             background: `url(${properties.cover}) no-repeat center center`,
+            backgroundSize: 'cover',
           }}
         >
 
@@ -139,8 +140,17 @@ class Post extends React.Component {
       )
     }
 
+
+    const headMeta = {
+      title: properties.title,
+      author: userData.data.author.displayName,
+      description: properties.excerpt,
+      cover: properties.cover,
+      url: `https://thepost.io/${username}/${postid}`,
+    }
+
     return (
-      <MainLayout>
+      <MainLayout headMeta={headMeta}>
         <div>
           <Divider>
             <Breadcrumb
@@ -208,7 +218,6 @@ export async function getServerSideProps(context) {
   if (!userData.error && !articleData.error) {
     // check if not done by a robot
     incrementVisit(urlQuery.username, urlQuery.postid)
-    console.log(getRanking())
   }
   
 

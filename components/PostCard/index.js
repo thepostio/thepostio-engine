@@ -1,5 +1,7 @@
 import { Card } from 'antd'
 import Link from 'next/link'
+import { format, parseISO } from 'date-fns'
+import styles from './styles.module.css'
 const { Meta } = Card
 
 
@@ -23,6 +25,7 @@ export default class PostCard extends React.Component {
       style={{ width: '100%'}}
       // cover={<img alt="example" src={postMetadata.cover} />}
 
+      title={<div className={styles.datetitle}>{format(parseISO(postMetadata.date), 'LLLL d, yyyy')}</div>}
       cover={
         <Link href={`/${postMetadata.username}/${postMetadata.postid}`}><a>
         <div
@@ -37,7 +40,7 @@ export default class PostCard extends React.Component {
       }
 
 
-      extra={<Link href={`/${postMetadata.username}/${postMetadata.postid}`}><a>Read the article </a></Link>}
+      // extra={<Link href={`/${postMetadata.username}/${postMetadata.postid}`}><a>Read the article </a></Link>}
     >
       <Meta
         title={

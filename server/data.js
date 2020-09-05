@@ -66,7 +66,7 @@ export async function getPostData(username, postid, provider = 'github') {
 
     // fix cover to relative path
     if ('cover' in matterResult.data && !matterResult.data.cover.startsWith('http')) {
-      matterResult.data.cover = pathJoin ([folderUrl, matterResult.data.cover]) 
+      matterResult.data.cover = pathJoin ([folderUrl, matterResult.data.cover])
     } else if (!('cover' in matterResult.data)) {
       matterResult.data.cover = 'https://thepost.io/images/mosaic.png'
     }
@@ -122,9 +122,12 @@ export async function getPostMetadata(username, postid, provider = 'github') {
       matterResult.data.date = DateTools.getIso8601z({onlyDate: true})
     }
 
+
+
+
     // fix cover to relative path
     if ('cover' in matterResult.data && !matterResult.data.cover.startsWith('http')) {
-      matterResult.data.cover = pathJoin ([folderUrl, matterResult.data.cover]) 
+      matterResult.data.cover = pathJoin ([folderUrl, matterResult.data.cover])
     } else if (!('cover' in matterResult.data)) {
       matterResult.data.cover = 'https://thepost.io/images/mosaic.png'
     }
