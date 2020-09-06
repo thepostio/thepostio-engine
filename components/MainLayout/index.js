@@ -18,7 +18,12 @@ class MainLayout extends React.Component {
     const author = headMeta.author ? headMeta.author : 'The Post'
 
     return (
-      <Layout>
+      <Layout
+        style={{
+            position: 'relative',
+            minHeight: '100vh',
+        }}
+      >
         <Head>
           <title>{title}</title>
           <link rel="shortcut icon" href="/favicon.png" />
@@ -62,7 +67,11 @@ class MainLayout extends React.Component {
           </Col>
         </Header>
         
-        <Row>
+        <Row
+          style={{
+            marginBottom: 250,
+          }}
+        >
           <Col xs={2}  sm={2}  md={4}  lg={4} xl={6}>
           </Col>
 
