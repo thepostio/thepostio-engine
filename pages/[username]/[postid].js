@@ -80,35 +80,48 @@ class Post extends React.Component {
     const date = parseISO(properties.date)
     const niceDate = format(date, 'LLLL d, yyyy')
 
-    const headerCard = (
-      <div
-        className={styles.headercard}
-      >
+    let headerCard = null
 
+    if (properties.cover) {
+      headerCard = (
         <div
-          className={styles.titlewrapper}
+          className={styles.headercard}
         >
-          <div className={styles.titleuser}>{userData.data.author.displayName}</div>
-          <h1 className={styles.title}>{properties.title}</h1>
-          <div className={styles.nicedate}>{niceDate}</div>
+          <div
+            className={styles.titlewrapper}
+          >
+            <div className={styles.titleuser}>{userData.data.author.displayName}</div>
+            <h1 className={styles.title}>{properties.title}</h1>
+            <div className={styles.nicedate}>{niceDate}</div>
+          </div>
+          <div className={styles.headercarddarkgb} />
+          <div
+          className={styles.headercardbgpicture}
+            style={{
+              background: `url(${properties.cover}) no-repeat center center`,
+              backgroundSize: 'cover',
+            }}
+          >
+          </div>
         </div>
-
+      )
+    } else {
+      headerCard = (
         <div
-          className={styles.headercarddarkgb}
+          className={styles.headercardnocover}
         >
-
+          <div
+            className={styles.titlewrapper}
+          >
+            <div className={styles.titleusernocover}>{userData.data.author.displayName}</div>
+            <h1 className={styles.titlenocover}>{properties.title}</h1>
+            <div className={styles.nicedatenocover}>{niceDate}</div>
+          </div>
         </div>
-        <div
-        className={styles.headercardbgpicture}
-          style={{
-            background: `url(${properties.cover}) no-repeat center center`,
-            backgroundSize: 'cover',
-          }}
-        >
+      )
+    }
 
-        </div>
-      </div>
-    )
+    
 
     const cardActions = [
       <Link href={`/${username}`}><Tooltip title='More articles' color='blue'>

@@ -24,18 +24,13 @@ export default class PostCard extends React.Component {
       className={styles.card}
       hoverable
       bordered={false}
-      // style={{
-      //   width: '100%',
-      //   boxShadow: '0px 0px 28px -13px rgb(0 0 0 / 30%)'
-      // }}
-      // cover={<img alt="example" src={postMetadata.cover} />}
 
       title={<div className={styles.datetitle}>{format(parseISO(postMetadata.date), 'LLLL d, yyyy')}</div>}
       cover={
         <Link href={`/${postMetadata.username}/${postMetadata.postid}`}><a>
         <div
           style={{
-            background: `url(${postMetadata.cover}) no-repeat center center`,
+            background: `url(${postMetadata.cover || 'https://thepost.io/images/mosaic.png'}) no-repeat center center`,
             backgroundSize: 'cover',
             height: 250,
           }}
