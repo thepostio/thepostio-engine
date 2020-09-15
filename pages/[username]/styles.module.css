@@ -116,13 +116,15 @@
 
 .articlecontent blockquote {
   position: relative;
-  padding-left: 1em;
-  border-left: 0.15em dotted #e1f0fb;
-  font-family: 'Roboto', serif;
-  font-size: 1.5em;
-  color: #5086b1;
-  font-weight: 100;
-  margin: 2em 0em;
+    padding-left: 1em;
+    border-left: 14px solid #ebf6ff;
+    font-size: 1.5em;
+    color: #676767;
+    font-weight: 100;
+    margin: 2em 0em;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    padding: 0em 8%;
 }
 
 
