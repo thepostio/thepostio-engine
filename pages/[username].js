@@ -174,8 +174,9 @@ export async function getServerSideProps(context) {
   // TODO: create a query param to specify other data provider than GitHub
   const urlQuery = context.query
   const provider = 'github'
-  let userData = await getAuthorData(urlQuery.username, provider)
 
+  console.time('c')
+  let userData = await getAuthorData(urlQuery.username, provider)
   let articleMetas = []
 
   if (userData.data && userData.data.articles) {
@@ -183,6 +184,9 @@ export async function getServerSideProps(context) {
       articleMetas.push(await getPostMetadata(urlQuery.username, userData.data.articles[i], provider))
     }
   }
+
+  console.log('query time (post listing):')
+  console.timeEnd('c')
   
   return {
     props: {

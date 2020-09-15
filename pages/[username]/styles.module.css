@@ -113,3 +113,28 @@
   box-shadow: 0px 13px 60px -23px rgba(0,0,0,0.3);
   margin-bottom: 3em;
 }
+
+.articlecontent blockquote {
+  position: relative;
+  padding-left: 1em;
+  border-left: 0.15em dotted #e1f0fb;
+  font-family: 'Roboto', serif;
+  font-size: 1.5em;
+  color: #5086b1;
+  font-weight: 100;
+  margin: 2em 0em;
+}
+
+
+.articlecontent blockquote::after {
+  
+  font-family: 'Sanchez';
+    content: '\201D';
+    position: absolute;
+    top: 0em;
+    right: 0;
+    font-size: 6em;
+    font-style: italic;
+    color: #88888826;
+    z-index: -1;
+}

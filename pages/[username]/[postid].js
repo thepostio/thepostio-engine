@@ -121,8 +121,6 @@ class Post extends React.Component {
       )
     }
 
-    
-
     const cardActions = [
       <Link href={`/${username}`}><Tooltip title='More articles' color='blue'>
         <a style={{fontSize: '2em'}}><ReadOutlined /></a>
@@ -225,8 +223,12 @@ export async function getServerSideProps(context) {
   const provider = 'github'
   const urlQuery = context.query
   // console.log(urlQuery)
+
+  console.time('c')
   let userData = await getAuthorData(urlQuery.username, provider)
   let articleData = await getPostData(urlQuery.username, urlQuery.postid, provider)
+  console.log('query time (post):')
+  console.timeEnd('c')
 
   if (!userData.error && !articleData.error) {
     // check if not done by a robot

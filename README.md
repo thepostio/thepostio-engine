@@ -1,11 +1,12 @@
 # todo
 ## Backend
-- Cache html versions of articles in S3
 - create method to fetch article card content
 - create functions to get content (user or article) based on the provider (github, gitlab)
+- update statistics on visits (except bots)
 
 ## Frontend
-- styling of author page
-- styling of article page
 - deal with author page pagination (6 articles)
 - create article card
+- Make better looking quotes
+- add top button/shortcut with tuts
+- better steps (vertical?) on the first page
