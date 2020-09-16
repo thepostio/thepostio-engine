@@ -53,7 +53,7 @@ export default function Home() {
 
           </Timeline>
           
-          <Row style={{marginTop: 50}}>
+          <Row style={{marginTop: 10}}>
             <Col span={24} justify="center" style={{textAlign: 'center'}}>
               <Link href='/thepostio/getting-started'><a>
                 <Button type="primary" style={{textAlign: 'center'}}>Learn more</Button>

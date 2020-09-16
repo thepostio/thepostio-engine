@@ -140,3 +140,34 @@
     color: #88888826;
     z-index: -1;
 }
+
+.articlecontent code {
+  background: #eaf4fd;
+  color: #125b94;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+.articlecontent pre code {
+  background: inherit;
+  color: inherit;
+  padding: inherit;
+  border-radius: inherit;
+  margin: 2em 0;
+}
+
+.articlecontent p {
+  margin-bottom: 1.5em;
+}
+
+
+.articlecontent h1,
+.articlecontent h2,
+.articlecontent h3,
+.articlecontent h4,
+.articlecontent h5,
+.articlecontent h6 {
+  margin-top: 1.5em;
+  margin-bottom: 0.25em;
+}
