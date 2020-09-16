@@ -52,15 +52,14 @@ class MainLayout extends React.Component {
           className={styles.header}
         >
           <Row
-            // align="middle"
           >
             <Col
-              span={8}
+              span={2}
             >
               <TopLeftMenu/>
             </Col>
             <Col
-              span={8}
+              span={22}
               justify='center'
             >
               <Link href='/'><a>
@@ -75,15 +74,8 @@ class MainLayout extends React.Component {
             </Col>
 
             <Col
-              span={8}
-              justify='right'
-              style={{
-                textAlign: 'right'
-              }}
+              span={2}
             >
-              <Link href='/thepostio/getting-started'><a>
-                  <Button type="link" style={{textAlign: 'center'}}>How to publish ?</Button>
-              </a></Link>
             </Col>
           </Row>
         </Header>

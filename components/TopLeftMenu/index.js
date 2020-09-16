@@ -1,5 +1,12 @@
 import { Space, Menu, Dropdown, Affix } from 'antd'
-import { MenuOutlined, GithubOutlined, ThunderboltFilled, ExperimentOutlined, BugOutlined } from '@ant-design/icons'
+import {
+  MenuOutlined,
+  GithubOutlined,
+  ThunderboltFilled,
+  ExperimentOutlined,
+  BugOutlined,
+  EditOutlined
+} from '@ant-design/icons'
 import NewGithubIssueUrl from 'new-github-issue-url'
 import Styles from './styles.module.css'
 
@@ -37,8 +44,20 @@ export default class TopLeftMenu extends React.Component {
       body: '\n\n\n---\nI\'m a human. Please be nice.'
     })
 
+
+
     const menu = (
       <Menu >
+        <Menu.Item>
+          <a href='/thepostio/getting-started' className={Styles.link}>
+            <Space>
+              <EditOutlined className='blue-text'/> How to publish on The Post?
+            </Space>
+          </a>
+        </Menu.Item>
+
+        <Menu.Divider />
+
         <Menu.Item>
           <a target="_blank" rel="noopener noreferrer" href={feedbackUrl} className={Styles.link}>
             <Space>
@@ -46,6 +65,7 @@ export default class TopLeftMenu extends React.Component {
             </Space>
           </a>
         </Menu.Item>
+
         <Menu.Item>
           <a target="_blank" rel="noopener noreferrer" href={featureUrl} className={Styles.link}>
           <Space>
@@ -53,6 +73,7 @@ export default class TopLeftMenu extends React.Component {
           </Space>
           </a>
         </Menu.Item>
+
         <Menu.Item>
           <a target="_blank" rel="noopener noreferrer" href={bugUrl} className={Styles.link}>
           <Space>
@@ -60,7 +81,9 @@ export default class TopLeftMenu extends React.Component {
           </Space>
           </a>
         </Menu.Item>
+
         <Menu.Divider />
+
         <Menu.Item>
           <a target="_blank" rel="noopener noreferrer" href='https://github.com/thepostio/thepostio-engine' className={Styles.link}>
           <Space>
@@ -74,7 +97,6 @@ export default class TopLeftMenu extends React.Component {
     return (
       <Affix>
       <Dropdown overlay={menu} placement="bottomLeft">
-        {/* <Button>bottomLeft</Button> */}
         <MenuOutlined/>
       </Dropdown>
       </Affix>
