@@ -6,7 +6,3 @@
 
 ## Frontend
 - deal with author page pagination (6 articles)
-- create article card
-- Make better looking quotes
-- add top button/shortcut with tuts
-- better steps (vertical?) on the first page
