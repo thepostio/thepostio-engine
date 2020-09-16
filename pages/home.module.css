@@ -1,7 +1,7 @@
 .timelineElement {
   top: -10px;
   padding: 0 15px;
-  padding-bottom: 0px;
+  padding-bottom: 15px;
 }
 
 
@@ -25,12 +25,12 @@
 }
 
 .timelineContainer {
-  /* margin-top: 100px; */
-  height: fit-content;
+  margin-top: 25%;
+  /* height: fit-content;
   position: fixed;
   left: 0;
   top: -5%;
   right: 0;
   bottom: 0;
-  margin: auto;
+  margin: auto; */
 }

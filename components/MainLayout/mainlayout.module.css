@@ -12,7 +12,7 @@
 
 .footer {
   background: #40a9fe;
-  padding: 24px 0px;
+  padding: 10px 0px;
   /* margin-top: 4em; */
   font-size: 1em;
   color: #00000080;
@@ -28,9 +28,9 @@
 }
 
 .footerlogo {
-  width: 100px;
-  height: 100px;
-  min-width: 100px;
-  min-height: 100px;
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
+  min-height: 80px;
   opacity: 0.5;
 }
