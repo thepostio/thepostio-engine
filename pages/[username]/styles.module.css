@@ -59,6 +59,12 @@
 }
 
 
+@-moz-document url-prefix() {
+  .titlewrapper {
+    height: 8em;
+  }
+}
+
 .breadcrumbs {
   text-align: center;
   margin: 1em 0;
