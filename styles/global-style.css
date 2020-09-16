@@ -45,6 +45,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
+.blue-text {
+  color: #3fa9fc;
+}
+
 .ant-layout-header {
   background-color: inherit;
   height: fit-content;
@@ -69,4 +73,9 @@ code {
 
 .ant-card-meta-description {
   font-size: 1.2em;
+}
+
+
+.ant-timeline-item-content {
+  top: -1.1em;
 }

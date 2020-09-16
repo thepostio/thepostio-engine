@@ -1,8 +1,9 @@
-import { Layout, Row, Col, Button, Badge } from 'antd'
+import { Layout, Row, Col, Button, Menu, Dropdown } from 'antd'
 import { MenuOutlined, GithubOutlined } from '@ant-design/icons'
 import styles from './mainlayout.module.css'
 import Link from 'next/link'
 import Head from 'next/head'
+import TopLeftMenu from '../TopLeftMenu'
 const { Header, Footer, Sider, Content } = Layout
 
 
@@ -56,6 +57,7 @@ class MainLayout extends React.Component {
             <Col
               span={8}
             >
+              <TopLeftMenu/>
             </Col>
             <Col
               span={8}
@@ -80,9 +82,7 @@ class MainLayout extends React.Component {
               }}
             >
               <Link href='/thepostio/getting-started'><a>
-                <Badge count='?'>
-                  <Button type="link" style={{textAlign: 'center'}}>How to publish</Button>
-                </Badge>
+                  <Button type="link" style={{textAlign: 'center'}}>How to publish ?</Button>
               </a></Link>
             </Col>
           </Row>

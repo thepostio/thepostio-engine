@@ -17,6 +17,7 @@
     "js-yaml": "^3.14.0",
     "jsdom": "^16.4.0",
     "marked": "^1.1.1",
+    "new-github-issue-url": "^0.2.1",
     "next": "9.3.5",
     "node-fetch": "^2.6.0",
     "react": "16.13.1",

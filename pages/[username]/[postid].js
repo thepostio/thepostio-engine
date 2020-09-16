@@ -77,8 +77,7 @@ class Post extends React.Component {
     // const router = useRouter()
     
     const properties = articleData.data.properties
-    const date = parseISO(properties.date)
-    const niceDate = format(date, 'LLLL d, yyyy')
+    const niceDate = properties.date ? format(parseISO(properties.date), 'LLLL d, yyyy') : null
 
     let headerCard = null
 
@@ -92,7 +91,7 @@ class Post extends React.Component {
           >
             <div className={styles.titleuser}>{userData.data.author.displayName}</div>
             <h1 className={styles.title}>{properties.title}</h1>
-            <div className={styles.nicedate}>{niceDate}</div>
+            {niceDate ? <div className={styles.nicedate}>{niceDate}</div> : null}
           </div>
           <div className={styles.headercarddarkgb} />
           <div

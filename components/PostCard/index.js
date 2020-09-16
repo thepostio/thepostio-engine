@@ -18,6 +18,11 @@ export default class PostCard extends React.Component {
       )
     }
 
+
+    const niceDate = postMetadata.date
+    ? (<div className={styles.datetitle}>{format(parseISO(postMetadata.date), 'LLLL d, yyyy')}</div>)
+    : ' '
+
     return (
       
       <Card
@@ -25,7 +30,7 @@ export default class PostCard extends React.Component {
       hoverable
       bordered={false}
 
-      title={<div className={styles.datetitle}>{format(parseISO(postMetadata.date), 'LLLL d, yyyy')}</div>}
+      title={niceDate}
       cover={
         <Link href={`/${postMetadata.username}/${postMetadata.postid}`}><a>
         <div

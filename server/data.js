@@ -64,7 +64,7 @@ export async function getPostData(username, postid, provider = 'github') {
     if ('date' in matterResult.data && matterResult.data.date instanceof Date) {
       matterResult.data.date = DateTools.getIso8601z({date: matterResult.data.date, onlyDate: true})
     } else if(!('date' in matterResult.data)) {
-      matterResult.data.date = DateTools.getIso8601z({onlyDate: true})
+      matterResult.data.date = null //DateTools.getIso8601z({onlyDate: true})
     }
 
     // fix cover to relative path
@@ -123,7 +123,7 @@ export async function getPostMetadata(username, postid, provider = 'github') {
     if ('date' in matterResult.data && matterResult.data.date instanceof Date) {
       matterResult.data.date = DateTools.getIso8601z({date: matterResult.data.date, onlyDate: true})
     } else if(!('date' in matterResult.data)) {
-      matterResult.data.date = DateTools.getIso8601z({onlyDate: true})
+      matterResult.data.date = null //DateTools.getIso8601z({onlyDate: true})
     }
 
     // fix cover to relative path
