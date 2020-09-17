@@ -12,7 +12,7 @@ import {
   GlobalOutlined
 } from '@ant-design/icons'
 import { getAuthorData, getPostData } from '../../server/data'
-import { incrementVisit, getRanking } from '../../server/metrics'
+import { incrementVisit } from '../../server/metrics'
 import MainLayout from '../../components/MainLayout'
 import UrlBuilder from '../../core/UrlBuilder'
 import styles from './styles.module.css'
@@ -24,6 +24,7 @@ class Post extends React.Component {
     super(props)
     this.state = {}
     this._htmlDivRef = React.createRef()
+    console.log('serverSideInfo', props.serverSideInfo)
   }
 
   highlight = () => {
@@ -218,29 +219,44 @@ export default withRouter(Post)
 
 
 export async function getServerSideProps(context) {
+  console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+  console.log(context)
+  console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+
+
   // TODO: create a query param to specify other data provider than GitHub
   const provider = 'github'
   const urlQuery = context.query
   // console.log(urlQuery)
 
-  console.time('c')
+  console.time('getAuthorData + getPostData')
   let userData = await getAuthorData(urlQuery.username, provider)
   let articleData = await getPostData(urlQuery.username, urlQuery.postid, provider)
-  console.log('query time (post):')
-  console.timeEnd('c')
+  console.timeEnd('getAuthorData + getPostData')
+
+  const serverSideInfo = {
+    metricUpdateError: null,
+  }
 
   if (!userData.error && !articleData.error) {
     // check if not done by a robot
-    incrementVisit(urlQuery.username, urlQuery.postid)
+    try {
+      console.time('metricUpdate')
+      incrementVisit(urlQuery.username, urlQuery.postid, provider)
+      .then((res) => {})
+      .catch((err) => console.log(err))
+      console.timeEnd('metricUpdate')
+    } catch (e) {
+      serverSideInfo.metricUpdateError = e.message
+    }
   }
-  
-
 
   return {
     props: {
       provider,
       userData,
       articleData,
+      serverSideInfo,
     },
   }
 }

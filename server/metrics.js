@@ -1,6 +1,40 @@
+import { format } from 'date-fns'
+import dotenv from 'dotenv'
+import BucketLayer from './BucketLayer'
+dotenv.config()
 
 
-export function incrementVisit(username, postId) {
-  // here add DB logic to increment visit counter
+/**
+ * Put into a S3 bucket the record about this visit
+ */
+export async function incrementVisit(username, postId, provider = 'github') {
+
+  // prepare to push data to a S3 bucket
+  const settings = {
+    endpoint: process.env.S3_ENDPOINT,
+    accessKeyId: process.env.S3_ACCESS_KEY_ID,
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+    bucket: process.env.S3_BUCKET_NAME,
+    region: process.env.S3_REGION,
+  }
+
+  const bl = new BucketLayer(settings)
+  const now = new Date()
+  const strDate = format(now, 'yyyy-MM-dd')
+
+  // 1. Create a record to state that this triple [provider + username + postId]
+  // was visited on this day. This record already exists if this article was already
+  // visited during the same day but it's cheaper to overwrite no matter what than 
+  // to check first.
+  const visitedPostKey = `/visits/visitedPosts/${strDate}/${provider}/${username}/${postId}`
+  const res1 = await bl.set(visitedPostKey, '1')
+  console.log(res1)
+
+  // 2. Create a record for this triple for this specific visit. The last element
+  // of the key is the timestamp. Since the timestamp is in ms, we do not expect doublons
+  // (and even though they occure, this would not be critical)
+  const uniquePostVisitsKey = `/visits/uniquePostVisits/${strDate}/${provider}/${username}/${postId}/${+now}`
+  const res2 = await bl.set(uniquePostVisitsKey, '1')
+  console.log(res2)
 }
 
