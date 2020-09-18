@@ -44,9 +44,7 @@ export async function getPostData(username, postid, provider = 'github') {
     error: null,
   }
 
-  console.time("c1")
   const articleRes = await fetch(url)
-  console.timeEnd("c1")
   if (!articleRes.ok) {
     articleData.error = 'This article does not exist'
   }
@@ -54,8 +52,6 @@ export async function getPostData(username, postid, provider = 'github') {
   try {
     // markdown business
     const textContent = await articleRes.text()
-    
-    console.time("c2")
     const matterResult = matter(textContent)
     const makdownContent = markdownReplaceImageURL(matterResult.content.trim(), folderUrl)
 
@@ -86,7 +82,6 @@ export async function getPostData(username, postid, provider = 'github') {
       html: mdToHtml(makdownContent),
       properties: matterResult.data
     }
-    console.timeEnd("c2")
 
   } catch(err) {
     articleData.error = err.message

@@ -11,6 +11,7 @@ import {
   ReadOutlined,
   GlobalOutlined
 } from '@ant-design/icons'
+import UserAgent from 'express-useragent'
 import { getAuthorData, getPostData } from '../../server/data'
 import { incrementVisit } from '../../server/metrics'
 import MainLayout from '../../components/MainLayout'
@@ -219,11 +220,6 @@ export default withRouter(Post)
 
 
 export async function getServerSideProps(context) {
-  console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-  console.log(context)
-  console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-
-
   // TODO: create a query param to specify other data provider than GitHub
   const provider = 'github'
   const urlQuery = context.query
@@ -238,8 +234,10 @@ export async function getServerSideProps(context) {
     metricUpdateError: null,
   }
 
-  if (!userData.error && !articleData.error) {
-    // check if not done by a robot
+  const userAgentStr = context.req.headers['user-agent']
+  const userAgentData = UserAgent.parse(userAgentStr)
+
+  if (!userData.error && !articleData.error && !userAgentData.isBot) {
     try {
       console.time('metricUpdate')
       incrementVisit(urlQuery.username, urlQuery.postid, provider)

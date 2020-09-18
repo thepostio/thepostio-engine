@@ -14,7 +14,7 @@ export async function incrementVisit(username, postId, provider = 'github') {
     endpoint: process.env.S3_ENDPOINT,
     accessKeyId: process.env.S3_ACCESS_KEY_ID,
     secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-    bucket: process.env.S3_BUCKET_NAME,
+    bucket: process.env.S3_BUCKET_NAME_DEV,
     region: process.env.S3_REGION,
   }
 
@@ -26,14 +26,15 @@ export async function incrementVisit(username, postId, provider = 'github') {
   // was visited on this day. This record already exists if this article was already
   // visited during the same day but it's cheaper to overwrite no matter what than 
   // to check first.
-  const visitedPostKey = `/visits/visitedPosts/${strDate}/${provider}/${username}/${postId}`
+  const visitedPostKey = `visits/visitedPosts/${strDate}/${provider}/${username}/${postId}`
   const res1 = await bl.set(visitedPostKey, '1')
-  console.log(res1)
+  console.log('key: ', visitedPostKey)
+  console.log('res: ', res1)
 
   // 2. Create a record for this triple for this specific visit. The last element
   // of the key is the timestamp. Since the timestamp is in ms, we do not expect doublons
   // (and even though they occure, this would not be critical)
-  const uniquePostVisitsKey = `/visits/uniquePostVisits/${strDate}/${provider}/${username}/${postId}/${+now}`
+  const uniquePostVisitsKey = `visits/uniquePostVisits/${strDate}/${provider}/${username}/${postId}/${+now}`
   const res2 = await bl.set(uniquePostVisitsKey, '1')
   console.log(res2)
 }

@@ -175,7 +175,6 @@ export async function getServerSideProps(context) {
   const urlQuery = context.query
   const provider = 'github'
 
-  console.time('c')
   let userData = await getAuthorData(urlQuery.username, provider)
   let articleMetas = []
 
@@ -184,9 +183,6 @@ export async function getServerSideProps(context) {
       articleMetas.push(await getPostMetadata(urlQuery.username, userData.data.articles[i], provider))
     }
   }
-
-  console.log('query time (post listing):')
-  console.timeEnd('c')
   
   return {
     props: {

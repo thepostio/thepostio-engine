@@ -1,4 +1,4 @@
-import AWS from 'aws-sdk'
+const AWS = require('aws-sdk')
 
 
 const mime = {
@@ -8,7 +8,7 @@ const mime = {
 }
 
 
-export default class BucketLayer {
+class BucketLayer {
   constructor(settings) {
     this.s3 = new AWS.S3({
       endpoint: settings.endpoint,
@@ -22,7 +22,6 @@ export default class BucketLayer {
 
 
   async set(key, value) {
-    console.log('value.constructor', value.constructor)
 
     if (value.constructor === Uint32Array) {
       return await this._setUint32(key, value)
@@ -172,7 +171,7 @@ export default class BucketLayer {
   async list(prefix, onlyPath = true) {
     const params = { 
       Bucket: this._bucket,
-      Delimiter: '/',
+      Delimiter: '',
       Prefix: prefix,
       //MaxKeys: 2,
     }
@@ -256,3 +255,5 @@ export default class BucketLayer {
   }
   
 }
+
+module.exports = BucketLayer
