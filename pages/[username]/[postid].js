@@ -240,11 +240,13 @@ export async function getServerSideProps(context) {
   if (!userData.error && !articleData.error && !userAgentData.isBot) {
     try {
       console.time('metricUpdate')
-      incrementVisit(urlQuery.username, urlQuery.postid, provider)
-      .then((res) => {})
-      .catch((err) => console.log(err))
+      const res = await incrementVisit(urlQuery.username, urlQuery.postid, provider)
+      // incrementVisit(urlQuery.username, urlQuery.postid, provider)
+      // .then((res) => {})
+      // .catch((err) => console.log(err))
       console.timeEnd('metricUpdate')
     } catch (e) {
+      console.log(e)
       serverSideInfo.metricUpdateError = e.message
     }
   }
