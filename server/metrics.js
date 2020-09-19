@@ -14,7 +14,7 @@ export async function incrementVisit(username, postId, provider = 'github') {
     endpoint: process.env.S3_ENDPOINT,
     accessKeyId: process.env.S3_ACCESS_KEY_ID,
     secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-    bucket: process.env.PRODUCTION ? S3_BUCKET_NAME_PROD : process.env.S3_BUCKET_NAME_DEV,
+    bucket: process.env.PRODUCTION ? process.env.S3_BUCKET_NAME_PROD : process.env.S3_BUCKET_NAME_DEV,
     region: process.env.S3_REGION,
   }
 
