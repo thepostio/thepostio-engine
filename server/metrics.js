@@ -1,7 +1,7 @@
 import { format } from 'date-fns'
-import dotenv from 'dotenv'
+// import dotenv from 'dotenv'
 import BucketLayer from './BucketLayer'
-dotenv.config()
+// dotenv.config()
 
 
 /**
@@ -21,6 +21,10 @@ export async function incrementVisit(username, postId, provider = 'github') {
   console.log('Environment:', process.env.PRODUCTION ? 'PROD' : 'DEV')
   console.log('S3 settings:')
   console.log(settings)
+
+  // console.log('>>>>>>>>>>>>> process.env >>>>>>>>>>>>')
+  // console.log(process.env)
+  // console.log('--------------------------------------')
 
   const bl = new BucketLayer(settings)
   const now = new Date()
