@@ -18,6 +18,10 @@ export async function incrementVisit(username, postId, provider = 'github') {
     region: process.env.S3_REGION,
   }
 
+  console.log('Environment:', process.env.PRODUCTION ? 'PROD' : 'DEV')
+  console.log('S3 settings:')
+  console.log(settings)
+
   const bl = new BucketLayer(settings)
   const now = new Date()
   const strDate = format(now, 'yyyy-MM-dd')
