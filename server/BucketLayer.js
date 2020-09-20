@@ -10,12 +10,18 @@ const mime = {
 
 export default class BucketLayer {
   constructor(settings) {
-    this.s3 = new AWS.S3({
-      endpoint: settings.endpoint,
+    const bucketSettings = {
       accessKeyId: settings.accessKeyId,
       secretAccessKey: settings.secretAccessKey,
       region: settings.region,
-    })
+    }
+
+    // mandatory for Wasabi but should not be there if AWS
+    if (settings.endpoint) {
+      bucketSettings.endpoint = settings.endpoint
+    }
+
+    this.s3 = new AWS.S3(bucketSettings)
 
     this._bucket = settings.bucket
   }

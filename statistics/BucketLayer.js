@@ -10,12 +10,18 @@ const mime = {
 
 class BucketLayer {
   constructor(settings) {
-    this.s3 = new AWS.S3({
-      endpoint: settings.endpoint,
+    const bucketSettings = {
       accessKeyId: settings.accessKeyId,
       secretAccessKey: settings.secretAccessKey,
       region: settings.region,
-    })
+    }
+
+    // mandatory for Wasabi but should not be there if AWS
+    if (settings.endpoint) {
+      bucketSettings.endpoint = settings.endpoint
+    }
+
+    this.s3 = new AWS.S3(bucketSettings)
 
     this._bucket = settings.bucket
   }
@@ -139,6 +145,17 @@ class BucketLayer {
 
     const data = await this.s3.getObject(params).promise()
     return JSON.parse(data.Body.toString())
+  }
+
+
+  async getObjectHead(key) {
+    const params = {
+      Bucket: this._bucket,
+      Key: key, 
+    }
+
+    const data = await this.s3.headObject(params).promise()
+    return data
   }
 
 

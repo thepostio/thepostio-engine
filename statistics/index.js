@@ -64,9 +64,8 @@ async function main() {
   // with the highest number of visitors
   const top1000Posts = visitedPosts.slice(0, 1000)
   const reportTop1000Key = `visits/reportsTop1000/${dateStr}`
-  await bl.set(reportTop1000Key, top1000Posts)
 
-  
+  await bl.set(reportTop1000Key, top1000Posts)
 }
 
 

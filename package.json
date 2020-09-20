@@ -20,6 +20,7 @@
     "highlight.js": "^10.1.2",
     "js-yaml": "^3.14.0",
     "jsdom": "^16.4.0",
+    "jsonwebtoken": "^8.5.1",
     "marked": "^1.1.1",
     "new-github-issue-url": "^0.2.1",
     "next": "9.3.5",

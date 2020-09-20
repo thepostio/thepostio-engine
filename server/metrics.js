@@ -10,7 +10,7 @@ import BucketLayer from './BucketLayer'
 export async function incrementVisit(username, postId, provider = 'github') {
 
   // prepare to push data to a S3 bucket
-  const settings = {
+  const settings = { 
     endpoint: process.env.S3_ENDPOINT,
     accessKeyId: process.env.S3_ACCESS_KEY_ID,
     secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
