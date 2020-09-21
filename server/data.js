@@ -5,11 +5,11 @@ import Marked from 'marked'
 import DOMPurify from 'dompurify'
 import { JSDOM } from 'jsdom'
 import DateTools from '../core/DateTools'
+import UrlBuilder from '../core/UrlBuilder'
 
 
 export async function getAuthorData(username, provider = 'github') {
-  let url = `https://raw.githubusercontent.com/${username}/thepostio-content/master/config.yaml`
-  // TODO: here place the if/switch for other providers' URL making
+  const url = UrlBuilder.getUserConfig(username, provider)
   
   let userData = {
     data: null,
@@ -34,10 +34,9 @@ export async function getAuthorData(username, provider = 'github') {
 }
 
 
-
 export async function getPostData(username, postid, provider = 'github') {
-  let folderUrl = `https://raw.githubusercontent.com/${username}/thepostio-content/master/articles/${postid}`
-  let url = `${folderUrl}/index.md`
+  let folderUrl = UrlBuilder.getArticleFolder(username, postid, provider)
+  let url = UrlBuilder.getArticle(username, postid, provider)
 
   let articleData = {
     data: null,
@@ -91,11 +90,9 @@ export async function getPostData(username, postid, provider = 'github') {
 }
 
 
-
-
 export async function getPostMetadata(username, postid, provider = 'github') {
-  let folderUrl = `https://raw.githubusercontent.com/${username}/thepostio-content/master/articles/${postid}`
-  let url = `${folderUrl}/index.md`
+  let folderUrl = UrlBuilder.getArticleFolder(username, postid, provider)
+  let url = UrlBuilder.getArticle(username, postid, provider)
 
   let articleData = {
     data: null,
@@ -148,9 +145,6 @@ export async function getPostMetadata(username, postid, provider = 'github') {
 
   return articleData
 }
-
-
-
 
 
 export function markdownReplaceImageURL (md, prefix) {

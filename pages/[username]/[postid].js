@@ -207,7 +207,7 @@ class Post extends React.Component {
             <div
               style={{textAlign: 'center'}}
             >
-              <a href={UrlBuilder.getEditArticleLink(username, postid, provider)}>
+              <a href={UrlBuilder.getEditArticle(username, postid, provider)}>
                 <Button type="primary">Edit this article</Button>
               </a>
             </div>
