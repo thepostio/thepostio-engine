@@ -3,7 +3,7 @@ import { withRouter } from 'next/router'
 import Link from 'next/link'
 import { parseISO, format } from 'date-fns'
 import hljs from 'highlight.js'
-import { Breadcrumb, Card, Tooltip, Avatar, Button, Divider } from 'antd'
+import { Breadcrumb, Card, Tooltip, Avatar, Button, Divider, Row, Col } from 'antd'
 import {
   FrownOutlined,
   TwitterCircleFilled,
@@ -91,13 +91,9 @@ class Post extends React.Component {
         </MainLayout>
       )
     }
-
-
-    // const router = useRouter()
     
     const properties = articleData.data.properties
     const niceDate = properties.date ? format(parseISO(properties.date), 'LLLL d, yyyy') : null
-
     let headerCard = null
 
     if (properties.cover) {
@@ -105,36 +101,40 @@ class Post extends React.Component {
         <div
           className={styles.headercard}
         >
-          <div
-            className={styles.titlewrapper}
-          >
-            <div className={styles.titleuser}>{userData.data.author.displayName}</div>
-            <h1 className={styles.title}>{properties.title}</h1>
-            {niceDate ? <div className={styles.nicedate}>{niceDate}</div> : null}
-          </div>
-          <div className={styles.headercarddarkgb} />
-          <div
-          className={styles.headercardbgpicture}
+          <Row justify="space-around" align="middle" className={styles.titlewrapper}
             style={{
-              background: `url(${properties.cover}) no-repeat center center`,
-              backgroundSize: 'cover',
+              background: `linear-gradient(0deg, #00000070, #00000070), url(${properties.cover}) center center / cover no-repeat`,
+              width: '100%',
+              height: '100%',
             }}
           >
-          </div>
+            <Col span={24}>
+              <div className={styles.titleuser}>{userData.data.author.displayName}</div>
+              <h1 className={styles.title}>{properties.title}</h1>
+              {niceDate ? <div className={styles.nicedate}>{niceDate}</div> : null}
+            </Col>
+          </Row>
         </div>
       )
+
     } else {
       headerCard = (
         <div
           className={styles.headercardnocover}
         >
-          <div
-            className={styles.titlewrapper}
+
+          <Row justify="space-around" align="middle" className={styles.titlewrapper}
+            style={{
+              width: '100%',
+              height: '100%',
+            }}
           >
-            <div className={styles.titleusernocover}>{userData.data.author.displayName}</div>
-            <h1 className={styles.titlenocover}>{properties.title}</h1>
-            <div className={styles.nicedatenocover}>{niceDate}</div>
-          </div>
+            <Col span={24}>
+              <div className={styles.titleusernocover}>{userData.data.author.displayName}</div>
+              <h1 className={styles.titlenocover}>{properties.title}</h1>
+              {niceDate ? <div className={styles.nicedatenocover}>{niceDate}</div> : null}
+            </Col>
+          </Row>
         </div>
       )
     }

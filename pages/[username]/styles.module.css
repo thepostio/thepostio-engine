@@ -46,7 +46,7 @@
   font-size: 1.2em;
 }
 
-.titlewrapper {
+/* .titlewrapper {
   position: absolute;
   width: fit-content;
   height: fit-content;
@@ -56,8 +56,12 @@
   top: 0;
   bottom: 0;
   margin: auto;
-}
+} */
 
+
+.titlewrapper {
+  z-index: 3;
+}
 
 @-moz-document url-prefix() {
   .titlewrapper {
