@@ -11,6 +11,11 @@ export default function Home() {
   return (
     <MainLayout>
       <div
+        className={Styles.catchphraseheader}
+      >
+        {'Publish & Keep Ownership.'}
+      </div>
+      <div
         className={Styles.timelineContainer}
       >
           <Timeline mode="alternate">

@@ -61,6 +61,12 @@ class MainLayout extends React.Component {
               span={20}
               justify='center'
             >
+              <div
+                style={{
+                  width: 'fit-content',
+                  margin: 'auto',
+                }}
+              >
               <Link href='/'><a>
                 <img
                   className={styles.logo}
@@ -70,6 +76,7 @@ class MainLayout extends React.Component {
                   alt='The Post logo'
                 />
               </a></Link>
+              </div>
             </Col>
 
             <Col
@@ -81,7 +88,7 @@ class MainLayout extends React.Component {
         
         <Row
           style={{
-            marginBottom: 250,
+            marginBottom: 200,
           }}
         >
           <Col xs={2}  sm={2}  md={4}  lg={4} xl={6}>

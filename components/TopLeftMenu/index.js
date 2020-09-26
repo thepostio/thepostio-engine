@@ -5,7 +5,8 @@ import {
   ThunderboltFilled,
   ExperimentOutlined,
   BugOutlined,
-  EditOutlined
+  EditOutlined,
+  BookOutlined,
 } from '@ant-design/icons'
 import NewGithubIssueUrl from 'new-github-issue-url'
 import Styles from './styles.module.css'
@@ -48,6 +49,15 @@ export default class TopLeftMenu extends React.Component {
 
     const menu = (
       <Menu >
+        
+        <Menu.Item>
+          <a href='/thepostio' className={Styles.link}>
+            <Space>
+              <BookOutlined className='blue-text'/> The Post's Blog
+            </Space>
+          </a>
+        </Menu.Item>
+
         <Menu.Item>
           <a href='/thepostio/getting-started' className={Styles.link}>
             <Space>
@@ -97,7 +107,11 @@ export default class TopLeftMenu extends React.Component {
     return (
       <Affix>
       <Dropdown overlay={menu} placement="bottomLeft">
-        <MenuOutlined/>
+        <MenuOutlined
+          style={{
+            color: '#40a9ff',
+          }}
+        />
       </Dropdown>
       </Affix>
     )
