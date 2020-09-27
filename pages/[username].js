@@ -1,5 +1,5 @@
 import { withRouter } from 'next/router'
-import { Breadcrumb, Tooltip, Button, Divider, Col, Row, Space } from 'antd'
+import { Breadcrumb, Tooltip, Button, Divider, Col, Row, Space, notification } from 'antd'
 import {
   TwitterCircleFilled,
   GithubFilled,
@@ -11,12 +11,12 @@ import {
 
 import Link from 'next/link'
 import MainLayout from '../components/MainLayout'
-import { getAuthorData, getPostMetadata } from '../server/data'
+import { getAuthorData } from '../server/data'
 import PostCard from '../components/PostCard'
 import styles from './username.module.css'
 
 // how many articles on each load
-const ARTICLE_PAGE_SIZE = 1
+const ARTICLE_PAGE_SIZE = 5
 
 class User extends React.Component {
 
@@ -49,9 +49,14 @@ class User extends React.Component {
     const newArticleMetas = newArticleMetasCandidates.filter((meta) => !meta.error)
 
     const erroredArticles = newArticleMetasCandidates.filter((meta) => meta.error)
-
-    // TODO: notification for the missing articles
-    // TODO: in case of error, make sure we dont display doublons
+    
+    if (erroredArticles.length) {
+      notification.open({
+        message: 'Loading Error',
+        description: 'Some articles could not be loaded. If you are the author, make sure your "config.yaml" post listing contains only existing articles.',
+        placement: 'bottomRight',
+      })
+    }
 
     this.setState({
       articleMetas: articleMetas.concat(newArticleMetas)
@@ -237,18 +242,10 @@ export async function getServerSideProps(context) {
   const provider = 'github'
 
   let userData = await getAuthorData(urlQuery.username, provider)
-  let articleMetas = []
-
-  if (userData.data && userData.data.articles) {
-    for (let i = 0; i < userData.data.articles.length; i += 1) {
-      articleMetas.push(await getPostMetadata(urlQuery.username, userData.data.articles[i], provider))
-    }
-  }
   
   return {
     props: {
       userData,
-      articleMetas,
       provider,
     },
   }
