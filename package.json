@@ -5,13 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 3004",
-    "stats": "node statistics/index.js"
+    "start": "next start -p 3004"
   },
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
     "antd": "^4.6.1",
-    "aws-sdk": "^2.755.0",
     "date-fns": "^2.15.0",
     "dompurify": "^2.0.12",
     "dotenv": "^8.2.0",
@@ -22,6 +20,7 @@
     "jsdom": "^16.4.0",
     "jsonwebtoken": "^8.5.1",
     "marked": "^1.1.1",
+    "mysql": "^2.18.1",
     "new-github-issue-url": "^0.2.1",
     "next": "9.3.5",
     "node-fetch": "^2.6.0",

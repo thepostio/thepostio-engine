@@ -12,11 +12,11 @@ import {
   GlobalOutlined
 } from '@ant-design/icons'
 import UserAgent from 'express-useragent'
-import jwt from 'jsonwebtoken'
 import { getAuthorData, getPostData } from '../../server/data'
 import MainLayout from '../../components/MainLayout'
 import UrlBuilder from '../../core/UrlBuilder'
 import styles from './styles.module.css'
+import { incrementVisit } from '../../server/metrics'
 const { Meta } = Card;
 
 
@@ -25,7 +25,6 @@ class Post extends React.Component {
     super(props)
     this.state = {}
     this._htmlDivRef = React.createRef()
-    console.log('serverSideInfo', props.serverSideInfo)
   }
 
   highlight = () => {
@@ -40,24 +39,8 @@ class Post extends React.Component {
 
   componentDidMount() {
     this.highlight()
-    this._notifyVisit()
   }
 
-
-  /**
-   * Notify the server that this page is being visited
-   */
-  async _notifyVisit() {
-    const res = await fetch('/api/visit',
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${this.props.serverSideInfo.visitToken}`,
-        }
-      })
-
-    console.log(await res.json())
-  }
 
   render() {
     const router = this.props.router
@@ -249,33 +232,17 @@ export async function getServerSideProps(context) {
 
   const serverSideInfo = {
     metricUpdateError: null,
-    visitToken: null, 
   }
 
   const userAgentStr = context.req.headers['user-agent']
   const userAgentData = UserAgent.parse(userAgentStr)
 
   if (!userData.error && !articleData.error && !userAgentData.isBot) {
-  //   try {
-  //     console.time('metricUpdate')
-  //     const res = await incrementVisit(urlQuery.username, urlQuery.postid, provider)
-  //     // incrementVisit(urlQuery.username, urlQuery.postid, provider)
-  //     // .then((res) => {})
-  //     // .catch((err) => console.log(err))
-  //     console.timeEnd('metricUpdate')
-  //   } catch (e) {
-  //     console.log(e)
-  //     serverSideInfo.metricUpdateError = e.message
-  //   }
-
-    const visitToken = jwt.sign({
-      purpose: 'visit',
-      provider,
-      username: urlQuery.username,
-      postId: urlQuery.postid,
-    }, process.env.JWT_SECRET, { expiresIn: '1m' })
-
-    serverSideInfo.visitToken = visitToken
+    try {
+      await incrementVisit(urlQuery.username, urlQuery.postid, provider)
+    } catch (err) {
+      serverSideInfo.metricUpdateError = err.message
+    }
   }
 
   return {

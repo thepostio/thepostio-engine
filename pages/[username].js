@@ -71,9 +71,6 @@ class User extends React.Component {
     const articleMetas = this.state.articleMetas //this.props.articleMetas
     const provider = this.props.provider
     const postIds = this.props.userData.data.articles
-  
-    console.log('userData', userData)
-
 
     if (userData.error) {
       return (
