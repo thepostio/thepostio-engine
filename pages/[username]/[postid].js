@@ -12,11 +12,14 @@ import {
   GlobalOutlined
 } from '@ant-design/icons'
 import UserAgent from 'express-useragent'
+import cookie from 'cookie'
+import { v4 as uuidv4 } from 'uuid'
 import { getAuthorData, getPostData } from '../../server/data'
 import MainLayout from '../../components/MainLayout'
 import UrlBuilder from '../../core/UrlBuilder'
 import styles from './styles.module.css'
 import { incrementVisit } from '../../server/metrics'
+import CONSTANTS from '../../core/constants'
 const { Meta } = Card;
 
 
@@ -237,13 +240,40 @@ export async function getServerSideProps(context) {
   const userAgentStr = context.req.headers['user-agent']
   const userAgentData = UserAgent.parse(userAgentStr)
 
+
+
   if (!userData.error && !articleData.error && !userAgentData.isBot) {
+    let uniqueVisitorId = null
+
+    // Check if the the cookies contain the unique visitor ID
+    if (context.req.headers.cookie) {
+      const cookiesFromClient = cookie.parse(context.req.headers.cookie)
+
+      if (CONSTANTS.UNIQUE_VISITOR_COOKIE_NAME in cookiesFromClient) {
+        uniqueVisitorId = cookiesFromClient[CONSTANTS.UNIQUE_VISITOR_COOKIE_NAME]
+      }
+    }
+
+    // if the cookie corresponding to the unique visitor ID was not found,
+    // we create one and add it to the cookie for next time.
+    if (!uniqueVisitorId) {
+      uniqueVisitorId = uuidv4()
+
+      context.res.setHeader(
+        'Set-Cookie',
+        cookie.serialize(CONSTANTS.UNIQUE_VISITOR_COOKIE_NAME, String(uniqueVisitorId), {
+          maxAge: 60 * 60 * 24 * 365 // a year
+        }
+      ))
+    }
+    
     try {
-      await incrementVisit(urlQuery.username, urlQuery.postid, provider)
+      await incrementVisit(urlQuery.username, urlQuery.postid, uniqueVisitorId, provider)
     } catch (err) {
       serverSideInfo.metricUpdateError = err.message
     }
   }
+
 
   return {
     props: {

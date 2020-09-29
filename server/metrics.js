@@ -7,7 +7,7 @@ import mysql from 'mysql'
 /**
  * Put into a S3 bucket the record about this visit
  */
-export async function incrementVisit(username, postId, provider = 'github') {
+export async function incrementVisit(username, postId, uniqueVisitorId, provider = 'github') {
 
   const timestampMs = +(new Date)
   const timId = 'insert visit ' + timestampMs
@@ -26,6 +26,7 @@ export async function incrementVisit(username, postId, provider = 'github') {
     timestamp: timestampMs,
     username: username,
     postid: postId,
+    uniquevisitorid: uniqueVisitorId,
     provider: provider
   }
 

@@ -5,7 +5,6 @@ import { getPostMetadata } from '../../server/data'
  * so the request has basically no (need for a) body
  */
 export default async (req, res) => {
-  let visitToken = null
   const query = req.query
 
   let retValue = {
