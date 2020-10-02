@@ -89,7 +89,7 @@ class Post extends React.Component {
         >
           <Row justify="space-around" align="middle" className={styles.titlewrapper}
             style={{
-              background: `linear-gradient(0deg, #00000070, #00000070), url(${properties.cover}) center center / cover no-repeat`,
+              background: `linear-gradient(0deg, #00000050, #00000050), url(${properties.cover}) center center / cover no-repeat`,
               width: '100%',
               height: '100%',
             }}
@@ -97,6 +97,11 @@ class Post extends React.Component {
             <Col span={24}>
               <div className={styles.titleuser}>{userData.data.author.displayName}</div>
               <h1 className={styles.title}>{properties.title}</h1>
+              {
+                properties.subtitle
+                ? <h2 className={styles.subtitle}>{ properties.subtitle }</h2>
+                : null
+              }
               {niceDate ? <div className={styles.nicedate}>{niceDate}</div> : null}
             </Col>
           </Row>
@@ -118,6 +123,11 @@ class Post extends React.Component {
             <Col span={24}>
               <div className={styles.titleusernocover}>{userData.data.author.displayName}</div>
               <h1 className={styles.titlenocover}>{properties.title}</h1>
+              {
+                properties.subtitle
+                ? <h2 className={styles.subtitlenocover}>{ properties.subtitle }</h2>
+                : null
+              }
               {niceDate ? <div className={styles.nicedatenocover}>{niceDate}</div> : null}
             </Col>
           </Row>
@@ -155,11 +165,10 @@ class Post extends React.Component {
       )
     }
 
-
     const headMeta = {
       title: properties.title,
       author: userData.data.author.displayName,
-      description: properties.excerpt,
+      description: properties.subtitle ? properties.subtitle : properties.excerpt,
       cover: properties.cover,
       url: `https://thepost.io/${username}/${postid}`,
     }

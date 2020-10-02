@@ -27,7 +27,7 @@ export default function Home() {
               <div className={Styles.timelineElement}>
                 <h1>Write</h1>
                 <p>
-                  With Mardown, using your favorite text editor.
+                  With Markdown, using your favorite text editor.
                 </p>
               </div>
             </Timeline.Item>

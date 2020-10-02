@@ -13,11 +13,31 @@
   text-shadow: 0px 0px 17px rgb(0 0 0);
 }
 
+.subtitle {
+  font-size: 1.1em;
+  text-align: center;
+  color: white;
+  margin-top: -0.2em;
+  text-shadow: 0px 0px 17px rgb(0 0 0);
+  font-family: sans-serif;
+  font-weight: 200;
+}
+
+
 .titlenocover {
   font-size: 3em;
   text-align: center;
   margin-bottom: 0em;
   margin-top: -0.2em;
+}
+
+.subtitle {
+  font-size: 1.1em;
+  text-align: center;
+  margin-top: -0.2em;
+  text-shadow: 0px 0px 17px rgb(0 0 0);
+  font-family: sans-serif;
+  font-weight: 200;
 }
 
 .nicedate {
@@ -45,19 +65,6 @@
   text-align: center;
   font-size: 1.2em;
 }
-
-/* .titlewrapper {
-  position: absolute;
-  width: fit-content;
-  height: fit-content;
-  z-index: 3;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-} */
-
 
 .titlewrapper {
   z-index: 3;

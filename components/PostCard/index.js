@@ -29,6 +29,7 @@ export default class PostCard extends React.Component {
       className={styles.card}
       hoverable
       bordered={false}
+      extra={<span style={{color: '#8a8a8a'}}>{postMetadata.subtitle}</span>}
 
       title={niceDate}
       cover={
@@ -43,9 +44,6 @@ export default class PostCard extends React.Component {
         </div>
         </a></Link>
       }
-
-
-      // extra={<Link href={`/${postMetadata.username}/${postMetadata.postid}`}><a>Read the article </a></Link>}
     >
       <Meta
         title={
@@ -54,6 +52,7 @@ export default class PostCard extends React.Component {
           </a></Link>
         }
         description={postMetadata.excerpt}
+        
       />
     </Card>
     

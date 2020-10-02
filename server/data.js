@@ -73,6 +73,10 @@ export async function getPostData(username, postid, provider = 'github') {
       matterResult.data.title = 'Untitled'
     }
 
+    if (!('subtitle' in matterResult.data)) {
+      matterResult.data.subtitle = null
+    }
+
     if (!('excerpt' in matterResult.data)) {
       matterResult.data.excerpt = ''
     }
@@ -127,6 +131,10 @@ export async function getPostMetadata(username, postid, provider = 'github') {
 
     if (!('title' in matterResult.data)) {
       matterResult.data.title = 'Untitled'
+    }
+
+    if (!('subtitle' in matterResult.data)) {
+      matterResult.data.subtitle = null
     }
 
     if (!('excerpt' in matterResult.data)) {
