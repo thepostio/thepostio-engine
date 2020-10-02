@@ -98,8 +98,8 @@ class Post extends React.Component {
               <div className={styles.titleuser}>{userData.data.author.displayName}</div>
               <h1 className={styles.title}>{properties.title}</h1>
               {
-                properties.subtitle
-                ? <h2 className={styles.subtitle}>{ properties.subtitle }</h2>
+                properties.excerpt
+                ? <h2 className={styles.subtitle}>{ properties.excerpt }</h2>
                 : null
               }
               {niceDate ? <div className={styles.nicedate}>{niceDate}</div> : null}
@@ -124,8 +124,8 @@ class Post extends React.Component {
               <div className={styles.titleusernocover}>{userData.data.author.displayName}</div>
               <h1 className={styles.titlenocover}>{properties.title}</h1>
               {
-                properties.subtitle
-                ? <h2 className={styles.subtitlenocover}>{ properties.subtitle }</h2>
+                properties.excerpt
+                ? <h2 className={styles.subtitlenocover}>{ properties.excerpt }</h2>
                 : null
               }
               {niceDate ? <div className={styles.nicedatenocover}>{niceDate}</div> : null}
@@ -168,7 +168,7 @@ class Post extends React.Component {
     const headMeta = {
       title: properties.title,
       author: userData.data.author.displayName,
-      description: properties.subtitle ? properties.subtitle : properties.excerpt,
+      description: properties.excerpt,
       cover: properties.cover,
       url: `https://thepost.io/${username}/${postid}`,
     }

@@ -81,6 +81,10 @@ export async function getPostData(username, postid, provider = 'github') {
       matterResult.data.excerpt = ''
     }
 
+    if (!('tags' in matterResult.data)) {
+      matterResult.data.tags = []
+    }
+
     articleData.data = {
       html: mdToHtml(makdownContent),
       properties: matterResult.data
@@ -139,6 +143,10 @@ export async function getPostMetadata(username, postid, provider = 'github') {
 
     if (!('excerpt' in matterResult.data)) {
       matterResult.data.excerpt = ''
+    }
+
+    if (!('tags' in matterResult.data)) {
+      matterResult.data.tags = []
     }
 
     articleData.data = {

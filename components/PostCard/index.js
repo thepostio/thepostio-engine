@@ -1,4 +1,4 @@
-import { Card } from 'antd'
+import { Card, Tag } from 'antd'
 import Link from 'next/link'
 import { format, parseISO } from 'date-fns'
 import styles from './styles.module.css'
@@ -23,14 +23,15 @@ export default class PostCard extends React.Component {
     ? (<div className={styles.datetitle}>{format(parseISO(postMetadata.date), 'LLLL d, yyyy')}</div>)
     : ' '
 
+
+    let tags = postMetadata.tags.map((tag) => <Tag color="#40a9ff">{tag}</Tag>)
+
     return (
       
       <Card
       className={styles.card}
       hoverable
       bordered={false}
-      extra={<span style={{color: '#8a8a8a'}}>{postMetadata.subtitle}</span>}
-
       title={niceDate}
       cover={
         <Link href={`/${postMetadata.username}/${postMetadata.postid}`}><a>
@@ -43,6 +44,11 @@ export default class PostCard extends React.Component {
         >
         </div>
         </a></Link>
+      }
+      extra={
+        <div>
+          {tags}
+        </div>
       }
     >
       <Meta
