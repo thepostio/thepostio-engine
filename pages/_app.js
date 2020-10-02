@@ -11,13 +11,12 @@ import 'highlight.js/styles/github.css'
 import 'antd/dist/antd.css'
 import '../styles/global-style.css'
 // highlight.js/styles/github.css'
+import cookieNotification from '../core/cookieNotification'
 
 
 
 export default function App({ Component, pageProps }) {
-  const someVar = 'hello'
-
-  pageProps.thing = 'lala'
+  cookieNotification()
 
   return <Component {...pageProps} />
 }

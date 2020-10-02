@@ -1,10 +1,6 @@
 # TODO
 
 ## Features
-**Accept cookie popup** because it complies to GDPR.
-
-**Display tags** on articles and article listing.
-
 
 **Link by tags** so that one can click on a tag and find articles with the same tag, ordered by "average number of visits" per days since the first visit.
 
