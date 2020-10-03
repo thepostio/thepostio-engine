@@ -14,7 +14,7 @@ class MainLayout extends React.Component {
     const title = headMeta.title ? headMeta.title : 'The Post'
     const description = headMeta.description ? headMeta.description : 'Publish things, own your content.'
     const url = headMeta.url ? headMeta.url : 'https://thepost.io'
-    const cover = headMeta.cover ? headMeta.cover : 'https://thepost.io/images/mosaic.png'
+    const cover = headMeta.cover ? headMeta.cover : 'https://thepost.io/images/mosaic.jpg'
     const author = headMeta.author ? headMeta.author : 'The Post'
 
     return (

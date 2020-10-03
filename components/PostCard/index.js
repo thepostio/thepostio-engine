@@ -37,7 +37,7 @@ export default class PostCard extends React.Component {
         <Link href={`/${postMetadata.username}/${postMetadata.postid}`}><a>
         <div
           style={{
-            background: `url(${postMetadata.cover || 'https://thepost.io/images/mosaic.png'}) no-repeat center center`,
+            background: `url(${postMetadata.cover || 'https://thepost.io/images/mosaic.jpg'}) no-repeat center center`,
             backgroundSize: 'cover',
             height: 250,
           }}
